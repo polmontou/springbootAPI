@@ -1,18 +1,20 @@
 package com.example.test.controller;
 
-import com.example.test.HeartbeatSensor;
+import com.example.test.GameCatalog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collection;
+
 @RestController
-public class HeartbeatController {
+public class GameCatalogController {
 
     @Autowired
-    private HeartbeatSensor hbsensor;
+    private GameCatalog gameCatalog;
 
-    @GetMapping("/heartbeat")
-    public int getHeartbeat() {
-        return hbsensor.get();
+    @GetMapping("/gameId")
+    public Collection<String> getGameId() {
+        return gameCatalog.getGameIdentifiers();
     }
 }
