@@ -1,11 +1,11 @@
 package com.example.test.controller;
 
+import com.example.test.dto.GameCreationParamsDTO;
+import com.example.test.dto.GameDatasDTO;
 import com.example.test.service.CellPos;
 import com.example.test.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
 
 @RestController
 public class GameController {
@@ -13,12 +13,13 @@ public class GameController {
     private GameService service;
 
     @PostMapping("/games")
-    public String createGame(@RequestBody GameController params) {
-        return UUID.randomUUID().toString();
+    public String createGame(@RequestBody GameCreationParamsDTO params) {
+        service.createGame(params);
+        return "success";
     }
 
     @GetMapping("/games/{gameId}")
-    public Object getGame(@PathVariable("gameId") String gameId) {
+    public GameDatasDTO getGame(@PathVariable("gameId") String gameId) {
         return null;
     }
 
