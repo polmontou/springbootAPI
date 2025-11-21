@@ -1,8 +1,8 @@
 package com.example.test.controller;
 
-import com.example.test.dto.GameCreationParamsDTO;
-import com.example.test.dto.GameDatasDTO;
+import com.example.test.dto.GameDTO;
 import com.example.test.service.CellPos;
+import com.example.test.service.GameCreationParams;
 import com.example.test.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,14 +13,13 @@ public class GameController {
     private GameService service;
 
     @PostMapping("/games")
-    public String createGame(@RequestBody GameCreationParamsDTO params) {
-        service.createGame(params);
-        return "success";
+    public GameDTO createGame(@RequestBody GameCreationParams params) {
+        return GameDTO.from(service.createGame(params));
     }
 
     @GetMapping("/games/{gameId}")
-    public GameDatasDTO getGame(@PathVariable("gameId") String gameId) {
-        return null;
+    public GameDTO getGame(@PathVariable("gameId") String gameId) {
+        return GameDTO.from(service.findGameById(gameId));
     }
 
     @PutMapping("/games/{gameId}/{tokenId}")

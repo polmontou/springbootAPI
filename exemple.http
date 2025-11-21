@@ -1,0 +1,19 @@
+### GET request to example server
+GET http://localhost:8080
+
+###
+GET http://localhost:8080/gameId
+
+###
+POST http://localhost:8080/games
+Accept: application/json
+Content-Type: application/json
+
+{
+  "gameType":"tictactoe",
+  "boardSize": 3,
+  "playerCount": 2
+}
+
+###
+GET http://localhost:8080/games/ff84a344-a3e4-4dce-8327-b7b9cf68adef
