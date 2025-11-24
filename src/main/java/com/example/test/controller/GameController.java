@@ -45,9 +45,11 @@ public class GameController {
         return deleted;
     }
 
+
     @PutMapping("/games/{gameId}")
     public GameDTO updateGame(@PathVariable("gameId") String gameId, @RequestBody CellPos move) {
-        service.updateGame(gameId);
+        Game game = service.getGameById(gameId);
+        service.updateGame(game);
         return GameDTO.from(service.getGameById(gameId));
     }
 }

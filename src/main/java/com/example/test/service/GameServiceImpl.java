@@ -43,11 +43,12 @@ public class GameServiceImpl implements GameService {
     }
 
     public boolean deleteGame(String id) {
-        gameDAO.deleteGame(id);
-        return true;
+        boolean deleted = gameDAO.deleteGame(id);
+        return deleted;
     }
 
-    public void updateGame(String gameId) {
+    public void updateGame(Game game) {
+        gameDAO.updateGame(game);
     }
 
 }

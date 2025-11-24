@@ -8,10 +8,15 @@
 		<version>3.4.11</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.example</groupId>
+
 	<artifactId>test</artifactId>
+
 	<version>0.0.1-SNAPSHOT</version>
+
 	<name>test</name>
+
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
@@ -46,10 +51,22 @@
             <artifactId>engine</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 

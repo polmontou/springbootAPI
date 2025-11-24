@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.UUID;
 
 public interface GameDAO {
-    public List<Game> getAllGames();
-    public Game getGameById(String id);
-    public void addGame(Game game);
-    public void deleteGame(String id);
-    public void updateGame(Game game);
+    List<Game> getAllGames();
+    Game getGameById(String id);
+    void addGame(Game game);
+    boolean deleteGame(String gameId);
+    void updateGame(Game game);
 }

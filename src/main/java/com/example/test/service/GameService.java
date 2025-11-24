@@ -11,7 +11,7 @@ public interface GameService {
     Game getGameById(String id);
     Game createGame(GameCreationParams params);
     boolean deleteGame(String id);
-    void updateGame(String gameId);
+    void updateGame(Game game);
 }
 
 
