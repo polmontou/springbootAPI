@@ -1,5 +1,5 @@
 ### GET request to example server
-GET http://localhost:8080
+GET http://localhost:8080/games
 
 ###
 GET http://localhost:8080/games/0779f926-9dd2-46f0-bbf7-551dfc4c5b28

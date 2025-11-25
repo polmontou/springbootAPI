@@ -9,14 +9,13 @@ public final class MariaDBConnectSingleton {
     private Connection connection;
 
     private static final String URL = "jdbc:mariadb://localhost:3306/game_spring_api";
-    private static final String USER = "paulm";
+    private static final String USER = "root";
     private static final String PASSWORD = "toto";
 
     private MariaDBConnectSingleton() {
         try {
-            // Charger le driver JDBC
             Class.forName("org.mariadb.jdbc.Driver");
-            // Créer la connexion
+    
             this.connection = DriverManager.getConnection(URL, USER, PASSWORD);
             System.out.println("Connexion à la base de données établie !");
         } catch (ClassNotFoundException e) {

@@ -1,5 +1,7 @@
 package com.example.test.controller;
 
+import com.example.test.model.GameModel;
+import com.example.test.dao.jpastorage.GameRepository;
 import com.example.test.dto.GameDTO;
 import com.example.test.service.CellPos;
 import com.example.test.service.GameCreationParams;
@@ -10,18 +12,22 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class GameController {
     @Autowired
     private GameService service;
 
+    @Autowired
+    private GameRepository gameRepository;
+
     @GetMapping("/games")
     public List<GameDTO> getAllGames() {
-        List<Game> games = service.getAllGames();
+        Iterable<GameModel> games = gameRepository.findAll();
         List<GameDTO> gamesDTO = new ArrayList<>();
 
-        for (Game game : games) {
+        for (GameModel game : games) {
             gamesDTO.add(GameDTO.from(game));
         }
 
@@ -30,26 +36,29 @@ public class GameController {
 
     @GetMapping("/games/{gameId}")
     public GameDTO getGame(@PathVariable("gameId") String gameId) {
-        return GameDTO.from(service.getGameById(gameId));
+        GameModel game = gameRepository.findById(UUID.fromString(gameId)).get();
+        return GameDTO.from(game);
     }
 
     @PostMapping("/games")
     public GameDTO createGame(@RequestBody GameCreationParams params) {
-        return GameDTO.from(service.createGame(params));
+        GameModel game = new GameModel();
+        game.setGame_type(params.getGameType());
+        game.setBoard_size(params.getBoardSize());
+
+        return GameDTO.from(gameRepository.save(game));
     }
 
     @DeleteMapping("/games/{gameId}")
-    public boolean deleteGame(@PathVariable("gameId") String gameId) {
-        boolean deleted = service.deleteGame(gameId);
-
-        return deleted;
+    public void deleteGame(@PathVariable("gameId") String gameId) {
+        gameRepository.deleteById(UUID.fromString(gameId));
     }
 
 
     @PutMapping("/games/{gameId}")
     public GameDTO updateGame(@PathVariable("gameId") String gameId, @RequestBody CellPos move) {
-        Game game = service.getGameById(gameId);
-        service.updateGame(game);
-        return GameDTO.from(service.getGameById(gameId));
+        GameModel game = gameRepository.findById(UUID.fromString(gameId)).get();
+
+        return GameDTO.from(gameRepository.save(game));
     }
 }
