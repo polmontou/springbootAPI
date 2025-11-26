@@ -6,7 +6,6 @@ import com.example.test.dto.GameDTO;
 import com.example.test.service.CellPos;
 import com.example.test.service.GameCreationParams;
 import com.example.test.service.GameService;
-import fr.le_campus_numerique.square_games.engine.Game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

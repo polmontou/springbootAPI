@@ -15,9 +15,11 @@ public class GameModel {
     @GeneratedValue(generator = "UUID")
     private UUID id;
 
-    private int board_size;
+    @Column(name = "board_size")
+    private int boardSize;
 
-    private String game_type;
+    @Column(name = "game_type")
+    private String gameType;
 
 
 }
