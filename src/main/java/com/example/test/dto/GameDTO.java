@@ -5,26 +5,28 @@ import fr.le_campus_numerique.square_games.engine.Game;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.UUID;
+
 
 @Data
 @Builder
 public class GameDTO {
-    private String id;
+    private UUID id;
     private String gameType;
     private int boardSize;
 
     static public GameDTO from(Game game) {
         return GameDTO.builder()
-                .id(game.getId().toString())
+                .id(game.getId())
                 .gameType(game.getFactoryId())
                 .boardSize(game.getBoardSize())
                 .build();
     }
     static public GameDTO from(GameModel game) {
         return GameDTO.builder()
-                .id(game.getId().toString())
-                .gameType(game.getGame_type())
-                .boardSize(game.getBoard_size())
+                .id(game.getId())
+                .gameType(game.getGameType())
+                .boardSize(game.getBoardSize())
                 .build();
     }
 }

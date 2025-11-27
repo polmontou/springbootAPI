@@ -1,6 +1,8 @@
 package com.example.test.service;
 
-import com.example.test.dao.GameDAO;
+import com.example.test.dao.jpastorage.GameRepository;
+import com.example.test.dto.GameDTO;
+import com.example.test.model.GameModel;
 import fr.le_campus_numerique.square_games.engine.Game;
 import fr.le_campus_numerique.square_games.engine.GameFactory;
 import fr.le_campus_numerique.square_games.engine.connectfour.ConnectFourGameFactory;
@@ -8,26 +10,34 @@ import fr.le_campus_numerique.square_games.engine.tictactoe.TicTacToeGameFactory
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 @Service
 public class GameServiceImpl implements GameService {
     @Autowired
-    private GameDAO gameDAO;
+    private GameRepository gameRepository;
 
-    private List<Game> games;
 
-    public List<Game> getAllGames() {
-        return gameDAO.getAllGames();
+    public List<GameDTO> getAllGames() {
+        Iterable<GameModel> games = gameRepository.findAll();
+        List<GameDTO> gameDTOS = new ArrayList<>();
+
+        for (GameModel gameModel : games) {
+            gameDTOS.add(GameDTO.from(gameModel));
+        }
+        return gameDTOS;
     }
 
     @Override
-    public Game getGameById(String gameId) {
-        return gameDAO.getGameById(gameId);
+    public GameDTO getGameById(UUID gameId) {
+        return GameDTO.from(gameRepository.findById(gameId).get());
     }
 
-    public Game createGame(GameCreationParams params) {
+    @Override
+    public GameDTO createGame(GameCreationParams params) {
         GameFactory game = null;
         switch (params.getGameType()) {
             case "tictactoe":
@@ -38,17 +48,18 @@ public class GameServiceImpl implements GameService {
                 break;
         }
         Game createdGame = game.createGame(params.getPlayerCount(), params.getBoardSize());
-        gameDAO.addGame(createdGame);
-        return createdGame;
+        GameModel newGame = GameModel.fromGame(createdGame);
+
+        return GameDTO.from(gameRepository.save(newGame));
     }
 
-    public boolean deleteGame(String id) {
-        boolean deleted = gameDAO.deleteGame(id);
-        return deleted;
+    public boolean deleteGame(UUID gameId) {
+        gameRepository.deleteById(gameId);
+        return (!gameRepository.existsById(gameId));
     }
 
-    public void updateGame(Game game) {
-        gameDAO.updateGame(game);
+    public GameDTO updateGame(GameDTO gameDTO) {
+        return GameDTO.from(gameRepository.save(GameModel.fromGameDTO(gameDTO)));
     }
 
 }

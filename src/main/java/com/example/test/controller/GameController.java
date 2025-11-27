@@ -8,6 +8,7 @@ import com.example.test.service.GameCreationParams;
 import com.example.test.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +19,7 @@ public class GameController {
     @Autowired
     private GameService service;
 
-    @Autowired
-    private GameRepository gameRepository;
+    private RestClient restClient = RestClient.create();
 
     @GetMapping("/games")
     public List<GameDTO> getAllGames() {
