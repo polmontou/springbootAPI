@@ -14,6 +14,7 @@ public class GameDTO {
     private UUID id;
     private String gameType;
     private int boardSize;
+    private UUID userId;
 
     static public GameDTO from(Game game) {
         return GameDTO.builder()
@@ -27,6 +28,7 @@ public class GameDTO {
                 .id(game.getId())
                 .gameType(game.getGameType())
                 .boardSize(game.getBoardSize())
+                .userId(game.getUserId())
                 .build();
     }
 }

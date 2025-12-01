@@ -2,9 +2,6 @@
 GET http://localhost:8080/games
 
 ###
-GET http://localhost:8080/games/0779f926-9dd2-46f0-bbf7-551dfc4c5b28
-
-###
 POST http://localhost:8080/games
 Accept: application/json
 Content-Type: application/json
@@ -12,7 +9,8 @@ Content-Type: application/json
 {
   "gameType":"tictactoe",
   "boardSize": 3,
-  "playerCount": 2
+  "playerCount": 2,
+  "userId": "f2ee20a0-d523-492a-8597-47e8abb92d88"
 }
 ###
 POST http://localhost:8080/games
@@ -22,7 +20,41 @@ Content-Type: application/json
 {
   "gameType":"connect4",
   "boardSize": 7,
-  "playerCount": 2
+  "playerCount": 2,
+  "userId": "f2ee20a0-d523-492a-8597-47e8abb92d88"
+}
+
+###
+POST http://localhost:8080/games
+Accept: application/json
+Content-Type: application/json
+
+{
+  "gameType":"tictactoe",
+  "boardSize": 3,
+  "playerCount": 2,
+  "userId": "cf0f1317-18e2-471d-82f7-c82151742a23"
+}
+###
+POST http://localhost:8080/games
+Accept: application/json
+Content-Type: application/json
+
+{
+  "gameType":"connect4",
+  "boardSize": 7,
+  "playerCount": 2,
+  "userId": "cf0f1317-18e2-471d-82f7-c82151742a23"
+}
+###
+POST http://localhost:8080/games/user_logs
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "titi@titi.titi",
+  "password": "titi"
 }
 ###
 DELETE http://localhost:8080/games/71571b18-b239-4b07-a17e-b104b238301b
+ls

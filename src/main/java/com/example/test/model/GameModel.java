@@ -14,8 +14,10 @@ import java.util.UUID;
 @Setter
 public class GameModel {
     @Id
-    @GeneratedValue(generator = "UUID")
     private UUID id;
+
+    @Column(name="user_id")
+    private UUID userId;
 
     @Column(name = "board_size")
     private int boardSize;
@@ -23,11 +25,12 @@ public class GameModel {
     @Column(name = "game_type")
     private String gameType;
 
-    public static GameModel fromGame(Game game) {
+    public static GameModel fromGame(Game game, UUID userId) {
         GameModel gameModel = new GameModel();
         gameModel.id = game.getId();
         gameModel.boardSize = game.getBoardSize();
         gameModel.gameType = game.getFactoryId();
+        gameModel.userId = userId;
         return gameModel;
     }
 
